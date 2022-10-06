@@ -9,6 +9,7 @@ let initialPersonaData = {
   tipoUsuario: ''
 };
 
+
 export const Persona = (props: any) => {
   const [personasList, setPersonasList] = useState([]);
   const [personaData, setPersonaData] = useState(initialPersonaData);
