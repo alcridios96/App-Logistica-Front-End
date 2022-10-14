@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import API from '../../services/API'
+import API from '../../services/HttpClient';
 import { Button } from 'react-bootstrap';
 import RutaList from '../../components/Lists/Mantenedores/RutaList';
 import RutaModal from '../../components/Modals/Mantenedores/RutaModal';

@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from 'react';
-import API from '../../services/API';
+import API from '../../services/HttpClient';
 import { Button } from 'react-bootstrap';
 import PersonaList from '../../components/Lists/Mantenedores/PersonaList';
 import PersonaModal from '../../components/Modals/Mantenedores/PersonaModal';
 
-let initialPersonaData = {
-  nombre: '',
-  tipoUsuario: ''
-};
-
-
 export const Persona = (props: any) => {
   const [personasList, setPersonasList] = useState([]);
+
+  let initialPersonaData = {
+    nombre: '',
+    tipoUsuario: ''
+  };
+
   const [personaData, setPersonaData] = useState(initialPersonaData);
   const [isEdit, setIsEdit] = useState(false);
   const [hasErrorInForm, setHasErrorInForm] = useState(false);
@@ -26,6 +26,7 @@ export const Persona = (props: any) => {
     try {
       let data = await API.get('/getPersonas');
       setPersonasList(data);
+      console.log(data);
     }
     catch (error) {
       console.log(error);
@@ -46,24 +47,24 @@ export const Persona = (props: any) => {
 
   const agregarPersona = async () => {
     try {
-      let data = await API.save('/character', { data: personaData });
-      setPersonasList([...personasList, data]);
+      let data = await API.save('/character', newPersonaData);
+      resetModal();
+      getPersonas();
     }
     catch (error) {
       console.log(error);
     }
-    handleCloseModal();
   }
 
   const editarPersona = async (id: number) => {
     try {
-      const data = await API.update(`/character/${id}`, { data: personaData });
-      setPersonasList(personasList.map((item) => (item.id === id ? data : item)));
+      const data = await API.update(`/character/${id}`, newPersonaData);
+      resetModal();
+      getPersonas();
     }
     catch (error) {
       console.log(error);
     }
-    handleCloseModal();
   }
 
   const handleFormChange = (tipo: any, value: any) => {
@@ -115,7 +116,7 @@ export const Persona = (props: any) => {
         persona={personaData}
       />
       <PersonaList
-        personas={personas}
+        personas={personasList}
         borrarPersona={borrarPersona}
         editarPersona={handleOpenModal}
       />

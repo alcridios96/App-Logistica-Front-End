@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import API from '../../services/API'
+import API from '../../services/HttpClient';
 import { Button } from 'react-bootstrap';
 import ServicioList from '../../components/Lists/Mantenedores/ServicioList';
 import ServicioModal from '../../components/Modals/Mantenedores/ServicioModal';
